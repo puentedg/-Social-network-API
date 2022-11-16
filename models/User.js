@@ -1,14 +1,7 @@
-const { Model, DataTypes } = require("mongoose");
+const { Model, Schema } = require("mongoose");
 const bcrypt = require("bcrypt");
-const sequelize = require("../config/connection");
 
-class User extends Model {
-  async checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password);
-  }
-}
-
-User.init(
+const user = new Schema(
   {
     username: {
       type: DataTypes.STRING,
@@ -23,40 +16,28 @@ User.init(
         isEmail: true,
       },
     },
-    thoughts: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,}$/,
-      },
+    thoughts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'thought'
+    }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }]
+},
+{
+    toJSON: {
+        virtuals: true,
     },
-
-    friends: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      default: false,
-    },
-  },
-  {
-    hooks: {
-      beforeCreate: async (newUserData) => {
-        newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        return newUserData;
-      },
-      beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(
-          updatedUserData.password,
-          10
-        );
-        return updatedUserData;
-      },
-    },
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: "user",
-  }
+    id: false
+}
 );
 
-module.exports = User;
+userSchema.virtual('friendCount').get(function(){
+    return this.friends.length;
+});
+
+const User = model('user', userSchema);
+
+
+module.exports = user;
