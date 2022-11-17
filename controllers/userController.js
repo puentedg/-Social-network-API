@@ -89,7 +89,7 @@ deleteUser(req, res) {
       .catch((err) => res.status(500).json(err));
   },
 
-  removeFriend(req, res) {
+  deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: Types.ObjectId(req.params.userId) },
       { $pull:  { friends: Types.ObjectId(req.params.friendId) } },

@@ -1,4 +1,4 @@
-const usernames = [
+const users = [
     "Aaran",
     "Aaren",
     "Aarez",
@@ -173,22 +173,17 @@ const usernames = [
     "NextJS",
     "Tailwind",
     "Vue",
-    "mongodb",
-    "sql",
+    "Mongodb",
+    "MySQl",
   ];
   
-  const users = [];
-  
-  // Get a random item given an array
   const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
   
-  // Gets a random full name
   const getRandomUser = () =>
-    `${getRandomArrItem(usernames)}`;
+    `${getRandomArrItem(users)}`;
   
   const getRandomEmail = () => `${getRandomArrItem(emails)}`;
   
-  // Function to generate random applications that we can add to the database. Includes application tags.
   const getRandomThought = (int) => {
     let results = [];
     for (let i = 0; i < int; i++) {
@@ -201,7 +196,6 @@ const usernames = [
     return results;
   };
   
-  // Create the tags that will be added to each application
   const getReactions = (int) => {
     if (int === 1) {
       return getRandomArrItem(Reactions);
