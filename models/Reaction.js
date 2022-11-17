@@ -1,7 +1,7 @@
 const {Schema} = require("mongoose");
-const moment = require("moment");
 
-const reaction = new Schema({
+
+const reactionSchema = new Schema({
     reactionBody: {
         type: Schema.Types.String,
         required: true,
@@ -15,7 +15,10 @@ const reaction = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (v) => moment(v).format("dddd, MMMM Do YYYY, h:mm:ss a")
+        get:()=>{
+          let date = new Date ();
+          return date.toLocaleString();
+      }
     },
 }, {
     toJSON: {
@@ -24,4 +27,4 @@ const reaction = new Schema({
     id: false
 });
 
-module.exports = reaction;
+module.exports = reactionSchema;
