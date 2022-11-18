@@ -39,7 +39,7 @@ You can now run the routes into any API Design tester and test all the URL's
 
 Insomnia is used to test REST API calls. 
 
-Walk-through demonstration video:
+Walk-through demonstration video: https://drive.google.com/file/d/1DCns4N-nCidU9e9zZb8SJgII4g4pcEPE/view
 
 ## Questions
    
